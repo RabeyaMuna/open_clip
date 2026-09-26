@@ -151,3 +151,8 @@ core.*
 
 # Allow
 !src/evaluation/misc/results_dbs/*
+# Shell redirection artifacts
+=[0-9]*
+>[0-9]*
+*.tmp
+*.log
