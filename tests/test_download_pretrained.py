@@ -108,4 +108,4 @@ class DownloadPretrainedTests(unittest.TestCase):
 
             text_probs = (100.0 * image_features @ text_features.T).softmax(dim=-1)
 
-        self.assertTrue(torch.allclose(text_probs, torch.tensor([[0.0597, 0.6349, 0.3053]]), 1e-3))
+        torch.testing.assert_close(text_probs, torch.tensor([[0.0597, 0.6349, 0.3053]]), rtol=1e-3, atol=1e-3)
