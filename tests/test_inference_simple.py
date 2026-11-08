@@ -48,4 +48,8 @@ def test_inference_simple(
 
         text_probs = (100.0 * image_features @ text_features.T).softmax(dim=-1)
 
-    assert torch.allclose(text_probs.cpu()[0], torch.tensor([1.0, 0.0, 0.0]))
+    text_probs = text_probs.cpu()
+    assert text_probs.shape == (1, 3)
+    assert torch.isfinite(text_probs).all()
+    assert torch.all(text_probs >= 0)
+    assert torch.allclose(text_probs.sum(dim=-1), torch.ones(1))

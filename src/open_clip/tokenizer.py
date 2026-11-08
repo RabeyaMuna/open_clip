@@ -481,13 +481,13 @@ class HFTokenizer:
             return self._clips_tokenize(texts, context_length)
         else:
             # Standard tokenization
-            input_ids = self.tokenizer.batch_encode_plus(
+            input_ids = self.tokenizer(
                 texts,
                 return_tensors='pt',
                 max_length=context_length,
                 padding='max_length',
                 truncation=True,
-            ).input_ids
+            )["input_ids"]
 
             if self.strip_sep_token:
                 input_ids = torch.where(
@@ -507,12 +507,12 @@ class HFTokenizer:
     def _clips_tokenize(self, texts: List[str], context_length: int) -> torch.Tensor:
         """Use standard HF tokenizer but apply custom post-processing"""
         # Use standard tokenizer without special tokens - we'll add our own
-        encoded_outputs = self.tokenizer.batch_encode_plus(
+        encoded_outputs = self.tokenizer(
             texts,
             add_special_tokens=False,
             padding=False,
             truncation=False,
-            return_tensors=None
+            return_tensors=None,
         )
 
         encoded = []

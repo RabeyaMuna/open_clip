@@ -54,6 +54,7 @@ training = [
     'fsspec',
 ]
 test = [
+    'requests',
     'pytest-split',
     'pytest',
     'open_clip_torch[training]'
